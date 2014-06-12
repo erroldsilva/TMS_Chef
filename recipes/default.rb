@@ -13,18 +13,23 @@ user = node['current_user'] # user running chef cookbook (on provisioned host)
 home = node['etc']['passwd'][user]['dir'] # Chef DSL
 # home = Dir.home(user) # It's Ruby
 
-file "#{home}/TMS" do
-  action :create_if_missing
+directory "#{home}/TMS" do
+  action :create
 end
 
 
-bash "TMS_DEPLOY" do
+git "#{home}/TMS" do
+   repository "https://github.com/erroldsilva/TMS.git"
+   reference "master"
+   action :export
+end
+
+bash "install_TMS" do
+   cwd "#{home}/TMS"
+   code <<-EOH
      
-     cwd "#{home}/TMS"
-     code <<-EOH
-       wget http://mirrors.ibiblio.org/apache/tomcat/tomcat-7/v7.0.27/bin/apache-tomcat-7.0.27.tar.gz
-       tar -xzf apache-tomcat-7.0.27.tar.gz
-       chown -R webadmin:webadmin /opt/apps
-     EOH
-     not_if "test -d /opt/apps/apache-tomcat-7.0.27"
+     sudo npm install
+     node app
+   EOH
 end
+
