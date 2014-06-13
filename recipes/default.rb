@@ -15,17 +15,18 @@ directory "#{home}/TMS" do
   action :create
 end
 
-
+#create a directory in the home folder and get the contents from git
 git "#{home}/TMS" do
    repository "https://github.com/erroldsilva/TMS.git"
    reference "master"
    action :export
 end
 
+#init the npm packages and run the application
+
 bash "install_TMS" do
    cwd "#{home}/TMS"
    code <<-EOH
-     
      sudo npm install
      node app
    EOH
