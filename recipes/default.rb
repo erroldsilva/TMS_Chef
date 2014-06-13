@@ -7,11 +7,9 @@
 # No rights reserved - Feel free to Redistribute
 #
 
-#user = node['mycookbook']['user'] # user set in cookbook attrubute
 user = node['current_user'] # user running chef cookbook (on provisioned host)
 
 home = node['etc']['passwd'][user]['dir'] # Chef DSL
-# home = Dir.home(user) # It's Ruby
 
 directory "#{home}/TMS" do
   action :create
