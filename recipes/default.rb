@@ -2,9 +2,9 @@
 # Cookbook Name:: TMS_Deploy
 # Recipe:: default
 #
-# Copyright 2014, YOUR_COMPANY_NAME
+# Copyright 2014, Errol Dsilva
 #
-# All rights reserved - Do Not Redistribute
+# No rights reserved - Feel free to Redistribute
 #
 
 #user = node['mycookbook']['user'] # user set in cookbook attrubute
